@@ -18,7 +18,7 @@ You can install this script on your Linux PC in two ways:
 To make it accessible from anywhere, copy the script to the `/bin` directory:
 
 ```bash
-cp mon /bin/mon
+sudo cp mon /bin/mon
 ```
 
 This allows you to run the script like this:
