@@ -1,0 +1,23 @@
+# for this script to run you need to have inotify tools installed
+# you can install it by running the command apt sudo 'apt-get install inotify-tools '
+echo "Enter the name of the type of program you want to run:"
+#read program
+
+echo "Enter the path to the program file you want to run:"
+read path
+
+while true; do
+    # Watch/monitor for changes on defined file using inotify
+    file_changed=$(inotifywait -e modify -q --format '%w%f' "$path")
+
+    # Check if the script changed
+    if [ -n "$file_changed" ]; then
+      #clear old outputs
+      clear
+        # Run program script or code
+        "python3" "$path"
+    fi
+
+    # Add delay to reduce CPU usage
+    sleep 1
+done

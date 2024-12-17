@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Check if the target IP is provided as an argument
+if [ -z "$1" ]; then
+    TARGET_IP="localhost"  # Default target IP
+else
+    TARGET_IP="$1"  # Use the provided IP
+fi
+
+# Function to scan a range of ports
+scan_ports() {
+    local START_PORT=$1
+    local END_PORT=$2
+    echo "Scanning ports $START_PORT-$END_PORT on $TARGET_IP..."
+    nmap -p $START_PORT-$END_PORT --max-retries 3 --min-rate 100 --open -Pn $TARGET_IP
+    echo "Done scanning ports $START_PORT-$END_PORT."
+    sleep 2 # Add a delay between scans if needed
+}
+
+# Loop through port ranges in chunks of 1,000
+for ((PORT=1; PORT<=65535; PORT+=1000)); do
+    END_PORT=$((PORT + 999))
+    if [ $END_PORT -gt 65535 ]; then
+        END_PORT=65535 # Ensure the range doesn't exceed the max port
+    fi
+    scan_ports $PORT $END_PORT
+done
