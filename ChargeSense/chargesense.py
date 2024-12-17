@@ -32,7 +32,7 @@ def main():
         
         if plugged_in is False and last_plugged_in:
             last_plugged_in = False
-            print("Charger unplugged. Shutting down in 20 seconds...")
+            print("Charger unplugged. Shutting down in 30 seconds...")
             reset_shutdown_timer()
         
         elif plugged_in is True:
