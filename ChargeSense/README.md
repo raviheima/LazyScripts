@@ -1,65 +1,34 @@
----
+# ChargeSense
 
-## ChargeSense  
+This is a simple Python script I wrote to automatically shut down my PC when unplugged from the charger, particularly useful during idle activities like listening to music. The script helps conserve battery for later use, and it can also prevent guests (like friends) from using the PC when it's on battery power.
 
-**ChargeSense** is a simple Python script that automatically shuts down your PC when it is unplugged from the charger. It ensures your battery life is conserved and prevents unauthorized use while on battery power.  
+## Features
 
----
+- **Automatic Shutdown:** When the charger is unplugged, the PC will shut down after 20 seconds of idle time.
+- **Shutdown Timer Reset:** If the charger is plugged back in within the 20-second countdown, the shutdown is canceled.
+- **Customizable:** Feel free to tweak the script as you like to better suit your needs.
 
-### Features  
-- Monitors the laptop's power state.  
-- Shuts down the system 30 seconds after detecting it is unplugged.  
-- Resets automatically if the charger is reconnected.  
+## How It Works
 
----
+1. It checks the battery status to see if the charger is plugged in.
+2. If unplugged, it starts a 20-second countdown to shut down the system.
+3. If plugged back in within the countdown window, the shutdown is canceled and the timer resets.
 
-### Prerequisites  
-1. Python 3.x  
-2. `psutil` library (Install using `pip install psutil`)  
+## Requirements
 
----
+- Python 3.x
+- `psutil` library (install with `pip install psutil`)
 
-### Installation  
-1. Clone this repository:  
-   ```bash  
-   git clone https://github.com/raviheima/LazyScripts.git  
-   ```  
-2. Navigate to the script folder:  
-   ```bash  
-   cd LazyScripts  
-   ```  
-3. Install required dependencies:  
-   ```bash  
-   pip install psutil  
-   ```  
+## Tested On
 
----
+- Linux Debian
 
-### Usage  
-1. Run the script:  
-   ```bash  
-   python3 chargesense.py  
-   ```  
-2. The script will:  
-   - Monitor if the charger is disconnected.  
-   - Initiate shutdown after 30 seconds.  
+## Usage
 
----
+Simply run the script, and it will handle the rest. Make sure to have Python and the required library installed.
 
-### Notes  
-- Works on Linux systems (`shutdown now` command).  
-- Modify the shutdown command for other platforms (e.g., Windows).  
-- Useful for battery conservation and preventing unauthorized use.  
+```bash
+python chargesense.py
+```
 
----
-
-### Author  
-**Raviheima**  
-[GitHub Profile](https://github.com/raviheima)  
-
----
-
-### License  
-This project is licensed under the MIT License.  
-
----  
+Enjoy! :)

@@ -1,22 +1,28 @@
 import psutil
 import time
 import os
+import threading
+
+shutdown_timer = None
 
 def check_power_status():
-    # Get battery information
     battery = psutil.sensors_battery()
     
     if battery is None:
         return None
     
-    # Check if the laptop is plugged in (charging)
-    plugged = battery.power_plugged
-    return plugged
+    return battery.power_plugged
 
 def shutdown_pc():
-    print("Unplugged from charger. Shutting down in 30 seconds...")
-    time.sleep(30)  # Wait for 30 seconds before shutting down
-    os.system("shutdown now")  # Shut down the system
+    os.system("shutdown now")
+
+def reset_shutdown_timer():
+    global shutdown_timer
+    if shutdown_timer is not None:
+        shutdown_timer.cancel()
+    
+    shutdown_timer = threading.Timer(20, shutdown_pc)
+    shutdown_timer.start()
 
 def main():
     last_plugged_in = True
@@ -24,16 +30,18 @@ def main():
     while True:
         plugged_in = check_power_status()
         
-        # If the laptop was plugged in and now it's unplugged
         if plugged_in is False and last_plugged_in:
             last_plugged_in = False
-            shutdown_pc()
+            print("Charger unplugged. Shutting down in 20 seconds...")
+            reset_shutdown_timer()
         
-        # If it's plugged back in, reset the state
         elif plugged_in is True:
-            last_plugged_in = True
+            if last_plugged_in is False:
+                print("Charger plugged back in. Cancelling shutdown.")
+                last_plugged_in = True
+                if shutdown_timer is not None:
+                    shutdown_timer.cancel()
         
-        # Sleep for a short period before checking again
         time.sleep(1)
 
 if __name__ == "__main__":
