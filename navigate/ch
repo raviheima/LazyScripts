@@ -1,0 +1,16 @@
+function navigate() {
+    case $1 in
+        1)
+            cd ~/babe/crypto-hack && echo "Navigating to crypto-hack..."
+            ;;
+        2)
+            cd ~/babe/hack-the-box && echo "Navigating to hack-the-box..."
+            ;;
+        3)
+            cd ~/babe/try-hack-me && echo "Navigating to try-hack-me..."
+            ;;
+        *)
+            echo "Invalid option!"
+            ;;
+    esac
+}
